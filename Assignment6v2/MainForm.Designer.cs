@@ -179,6 +179,7 @@
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(108, 27);
             txtSearch.TabIndex = 9;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // MainForm
             // 

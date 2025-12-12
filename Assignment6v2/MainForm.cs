@@ -6,25 +6,23 @@ namespace Assignment6v2
 {
     public partial class MainForm : Form
     {
-        private PersonContext _db = new();
+        private readonly IPersonDataSource _db = new PersonContextDataSource();
 
-        public MainForm()
+        public MainForm(IPersonDataSource db)
         {
             InitializeComponent();
+            _db = db;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _db.Database.EnsureCreated();
-            _db.Persons.Load();
-            personBindingSource.DataSource = _db.Persons.Local.ToBindingList();
+            personBindingSource.DataSource = _db.GetPeople();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.Validate();
             personBindingSource.EndEdit();
-            _db.ChangeTracker.DetectChanges();
             _db.SaveChanges();
         }
 
@@ -34,10 +32,15 @@ namespace Assignment6v2
             {
                 if (addPersonsForm.ShowDialog() == DialogResult.OK)
                 {
-                    _db.Add(new Person() { Name = addPersonsForm.Name, Phone = addPersonsForm.Phone });
-                    _db.SaveChanges();
+                    var newPerson = new Person()
+                    {
+                        Name = addPersonsForm.Name,
+                        Phone = addPersonsForm.Phone
+                    };
+                    personBindingSource.Add(newPerson);
                 }
             }
+            ApplyFilter();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -45,13 +48,25 @@ namespace Assignment6v2
             Person currentPerson = (Person)personBindingSource.Current;
             if (currentPerson == null)
                 return;
-            _db.Persons.Remove(currentPerson);
+            personBindingSource.RemoveCurrent();
             _db.SaveChanges();
+            ApplyFilter();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        
+        private void ApplyFilter()
+        {
+            personBindingSource.DataSource = _db.GetPeople(txtSearch.Text);
         }
     }
 }

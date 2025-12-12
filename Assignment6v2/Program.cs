@@ -10,8 +10,9 @@ namespace Assignment6v2
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            IPersonDataSource db = new PersonListDataSource();
+            MainForm mainForm = new MainForm(db);
+            Application.Run(mainForm);
         }
     }
 }
