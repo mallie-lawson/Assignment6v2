@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="bin\Debug\net8.0-windows\persons.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.11" />
   </ItemGroup>
@@ -32,6 +26,10 @@
     <None Update="Properties\DataSources\Person.datasource">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0-windows\" />
   </ItemGroup>
 
 </Project>

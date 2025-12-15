@@ -49,6 +49,8 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -56,8 +58,9 @@
             dataGridView1.DataSource = personBindingSource;
             dataGridView1.Location = new Point(33, 67);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(336, 150);
+            dataGridView1.Size = new Size(728, 150);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -67,6 +70,7 @@
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.MinimumWidth = 6;
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
             idDataGridViewTextBoxColumn.Visible = false;
             idDataGridViewTextBoxColumn.Width = 125;
             // 
@@ -76,6 +80,7 @@
             nameDataGridViewTextBoxColumn.HeaderText = "Name";
             nameDataGridViewTextBoxColumn.MinimumWidth = 6;
             nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            nameDataGridViewTextBoxColumn.ReadOnly = true;
             nameDataGridViewTextBoxColumn.Width = 125;
             // 
             // phoneDataGridViewTextBoxColumn
@@ -84,6 +89,7 @@
             phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
             phoneDataGridViewTextBoxColumn.MinimumWidth = 6;
             phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
+            phoneDataGridViewTextBoxColumn.ReadOnly = true;
             phoneDataGridViewTextBoxColumn.Width = 125;
             // 
             // personBindingSource
@@ -174,7 +180,6 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Bottom;
-            txtSearch.DataBindings.Add(new Binding("Text", personBindingSource, "Name", true));
             txtSearch.Location = new Point(105, 22);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(108, 27);

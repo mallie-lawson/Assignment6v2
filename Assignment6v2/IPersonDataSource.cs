@@ -10,6 +10,8 @@ namespace Assignment6v2
     {
         IEnumerable<Person> GetPeople();
         IEnumerable<Person> GetPeople(string filter);
+        void AddPerson(Person person);
+        void DeletePerson(Person person);
         void SaveChanges();
     }
 }

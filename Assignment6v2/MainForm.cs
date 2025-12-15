@@ -16,7 +16,7 @@ namespace Assignment6v2
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            personBindingSource.DataSource = _db.GetPeople();
+            ApplyFilter();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -37,18 +37,21 @@ namespace Assignment6v2
                         Name = addPersonsForm.Name,
                         Phone = addPersonsForm.Phone
                     };
-                    personBindingSource.Add(newPerson);
+                    _db.AddPerson(newPerson);
+                    ApplyFilter();
                 }
             }
-            ApplyFilter();
+            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if(personBindingSource.Current == null)
+            { return; }
             Person currentPerson = (Person)personBindingSource.Current;
             if (currentPerson == null)
                 return;
-            personBindingSource.RemoveCurrent();
+            _db.DeletePerson(currentPerson);
             _db.SaveChanges();
             ApplyFilter();
         }
@@ -60,12 +63,14 @@ namespace Assignment6v2
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+
             ApplyFilter();
         }
 
         
         private void ApplyFilter()
         {
+
             personBindingSource.DataSource = _db.GetPeople(txtSearch.Text);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,18 @@ namespace Assignment6v2
         {
             _context = new PersonContext();
             _context.Database.EnsureCreated();
+            _context.Persons.Load();
 
-            var _ = _context.Persons.ToList();
+        }
+
+        public void AddPerson(Person person)
+        {
+            _context.Persons.Add(person);
+        }
+
+        public void DeletePerson(Person person)
+        {
+            _context.Persons.Remove(person);
         }
 
         public IEnumerable<Person> GetPeople()
@@ -30,7 +41,7 @@ namespace Assignment6v2
                 return GetPeople();
             }
 
-            return _context.Persons.Local.Where(p => p.Name.Contains(filter, StringComparison.OrdinalIgnoreCase));
+            return _context.Persons.Local.Where(p => (p.Name ?? string.Empty).Contains(filter, StringComparison.OrdinalIgnoreCase));
         }
 
         public void SaveChanges()

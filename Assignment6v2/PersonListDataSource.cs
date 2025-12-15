@@ -15,8 +15,6 @@ namespace Assignment6v2
             _people = new List<Person>();
 
             _people.Add(new Person { Id = 1, Name = "Alice Johnson", Phone = "555-1234" });
-            _people.Add(new Person { Id = 2, Name = "Bob Smith", Phone = "555-5678" });
-            _people.Add(new Person { Id = 3, Name = "Charlie Brown", Phone = "555-8765" });
         }
 
         public IEnumerable<Person> GetPeople()
@@ -32,6 +30,17 @@ namespace Assignment6v2
             }
             return _people.Where(p => p.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
         }
+
+        public void AddPerson(Person person)
+        {
+            _people.Add(person);
+        }
+
+        public void DeletePerson(Person person)
+        {
+            _people.Remove(person);
+        }
+
 
         public void SaveChanges()
         {
